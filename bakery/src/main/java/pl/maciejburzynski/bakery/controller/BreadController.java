@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.*;
 import pl.maciejburzynski.bakery.entity.Bread;
 import pl.maciejburzynski.bakery.service.BreadService;
 
-import java.math.BigDecimal;
 import java.util.Set;
 
 @RequiredArgsConstructor
@@ -22,7 +21,7 @@ public class BreadController {
     @GetMapping
     public Set getBreads() {
         log.info("Showing up all the breads");
-        return breadService.getAll();
+        return breadService.getBreads();
     }
 
     @GetMapping(path = "/{id}")
