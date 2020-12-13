@@ -7,12 +7,20 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ControllerAdvice
-public class BreadNotFoundExceptionAdvice {
+public class GlobalExceptionsHandler {
 
     @ResponseBody
     @ExceptionHandler(BreadNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     String BreadNotFoundExceptionHandler(BreadNotFoundException exception){
+        return exception.getMessage();
+    }
+
+
+    @ResponseBody
+    @ExceptionHandler(CustomerNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    String CustomerNotFoundExceptionHandler(CustomerNotFoundException exception){
         return exception.getMessage();
     }
 }
