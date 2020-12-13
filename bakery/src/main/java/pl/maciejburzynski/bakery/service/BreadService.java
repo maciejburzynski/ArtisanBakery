@@ -24,12 +24,18 @@ public class BreadService {
 
     public Bread getBreadById(Long id) {
         return breadRepository.getBreadById(id)
-                .orElseThrow(() -> new BreadNotFoundException("Requested bread doesn't exist"));
+                .orElseThrow(() -> new BreadNotFoundException("Bread with provided ID doesn't exist"));
     }
 
     public void addBread(Bread bread) {
         breadRepository.addBread(bread);
     }
+
+    public void addBreads(Iterable<Bread> breads) {
+        breadRepository.addBreads(breads);
+    }
+
+
 
     public void deleteBreadById(Long id) {
         breadRepository.deleteBreadById(id);
