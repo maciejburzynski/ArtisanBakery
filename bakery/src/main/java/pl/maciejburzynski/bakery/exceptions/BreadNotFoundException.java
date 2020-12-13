@@ -6,7 +6,4 @@ public class BreadNotFoundException extends RuntimeException {
         super(message);
     }
 
-    public BreadNotFoundException(String message, Throwable cause) {
-        super(message, cause);
-    }
 }
