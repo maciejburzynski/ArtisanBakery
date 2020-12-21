@@ -1,4 +1,4 @@
-package pl.maciejburzynski.bakery.controller;
+package pl.maciejburzynski.bakery.rest;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;

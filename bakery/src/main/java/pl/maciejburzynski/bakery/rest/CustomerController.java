@@ -1,4 +1,4 @@
-package pl.maciejburzynski.bakery.controller;
+package pl.maciejburzynski.bakery.rest;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -6,7 +6,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.maciejburzynski.bakery.entity.Customer;
-import pl.maciejburzynski.bakery.service.BreadService;
 import pl.maciejburzynski.bakery.service.CustomerService;
 
 import java.util.Set;

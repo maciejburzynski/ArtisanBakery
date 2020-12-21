@@ -1,4 +1,4 @@
-package pl.maciejburzynski.bakery.controller;
+package pl.maciejburzynski.bakery.rest;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
