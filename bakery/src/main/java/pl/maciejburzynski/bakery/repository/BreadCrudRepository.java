@@ -13,7 +13,6 @@ import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 @RequiredArgsConstructor
-@Primary
 @Repository
 public class BreadCrudRepository  {
     private final IBreadCrudRepository breadCrudRepository;
