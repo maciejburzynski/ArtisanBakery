@@ -9,6 +9,6 @@ import org.springframework.stereotype.Component;
 @Data
 public class BakeryConfig {
 
-    public String environmentName;
+    private String environmentName;
 
 }
