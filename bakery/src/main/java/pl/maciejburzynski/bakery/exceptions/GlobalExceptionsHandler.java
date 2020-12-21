@@ -23,4 +23,11 @@ public class GlobalExceptionsHandler {
     String CustomerNotFoundExceptionHandler(CustomerNotFoundException exception){
         return exception.getMessage();
     }
+
+    @ResponseBody
+    @ExceptionHandler(UserNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    String UserNotFoundExceptionHandler(UserNotFoundException exception){
+        return exception.getMessage();
+    }
 }
