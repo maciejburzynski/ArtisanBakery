@@ -25,8 +25,8 @@ public class User extends BasicEntity implements UserDetails {
     private String password;
     private String mail;
     private String role;
-//    @Transient
-//    private Set <? extends GrantedAuthority> authorities;
+    @Transient
+    private Set <? extends GrantedAuthority> authorities;
 
 //    public User(Set<? extends GrantedAuthority> authorities) {
 //        this.authorities = authorities;
