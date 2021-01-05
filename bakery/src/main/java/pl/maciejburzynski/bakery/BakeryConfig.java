@@ -10,5 +10,5 @@ import org.springframework.stereotype.Component;
 public class BakeryConfig {
 
     private String environmentName;
-
+    private String weatherKey;
 }
