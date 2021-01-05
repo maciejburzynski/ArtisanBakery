@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome</title>
+</head>
+<body>
+<h1> ELUWINA BYCZQ</h1>
+<h2> Strona Startowa</h2>
+<label>Obecna pogoda:</label>
+<p th:text="${weatherService.getWeather()}"></p>
+<label>Obecne Ciśnienie:</label>
+<p th:text="${weatherService.getPressure()}"></p>
+<label>Obecna Temperatura:</label>
+<p th:text="${weatherService.getTemp()}"></p>
+<label>Zalogowany user:</label>
+<p th:text="${loggedUser}"></p>
+
+<!--<form action="/signup" method="get">-->
+<!--    <input type="submit" value="Rejestracja"/>-->
+<!--</form>-->
+
+<!--<form action="/login" method="get">-->
+<!--    <input type="submit" value="Zaloguj się"/>-->
+<!--</form>-->
+
+<!--<form action="/logout" method="post">-->
+<!--    <input type="submit" value="Wyloguj się"/>-->
+<!--</form>-->
+
+</body>
+</html>
