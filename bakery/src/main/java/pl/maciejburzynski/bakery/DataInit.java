@@ -1,6 +1,6 @@
 package pl.maciejburzynski.bakery;
 
-import lombok.RequiredArgsConstructor;
+import  lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.annotation.Bean;
@@ -13,6 +13,7 @@ import pl.maciejburzynski.bakery.entity.Bread;
 import pl.maciejburzynski.bakery.entity.Customer;
 import pl.maciejburzynski.bakery.entity.Order;
 import pl.maciejburzynski.bakery.entity.User;
+import pl.maciejburzynski.bakery.security.UserRole;
 import pl.maciejburzynski.bakery.service.BreadService;
 import pl.maciejburzynski.bakery.service.CustomerService;
 import pl.maciejburzynski.bakery.service.OrderService;
@@ -22,6 +23,8 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import static pl.maciejburzynski.bakery.security.UserRole.*;
 
 @Component
 @RequiredArgsConstructor
@@ -74,15 +77,19 @@ public class DataInit {
         User admin = new User();
 
 
+        user.setMail("maciekburzynski@op.pl");
         user.setUsername("user");
-        user.setPassword(passwordEncoder.encode("user123"));
-        user.setRole("ROLE_USER");
+        user.setRole(USER.name());
+        user.setAuthorities(USER.getGrantedAuthorities());
+        user.setPassword(passwordEncoder.encode("user"));
 
+        admin.setMail("maciekburzynski@op.pl");
         admin.setUsername("admin");
-        admin.setPassword(passwordEncoder.encode("admin123"));
-        admin.setRole("ROLE_ADMIN");
+        admin.setRole(ADMIN.name());
+        admin.setAuthorities(ADMIN.getGrantedAuthorities());
+        admin.setPassword(passwordEncoder.encode("admin"));
 
-        userService.addUser(user);
-        userService.addUser(admin);
+        userService.addInitialUser(user);
+        userService.addInitialUser(admin);
     }
 }
