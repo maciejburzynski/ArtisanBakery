@@ -10,9 +10,13 @@ import pl.maciejburzynski.bakery.security.UserRole;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Set;
+
+import static pl.maciejburzynski.bakery.security.UserRole.ADMIN;
+import static pl.maciejburzynski.bakery.security.UserRole.USER;
 
 @Entity
 @Getter
@@ -26,18 +30,14 @@ public class User extends BasicEntity implements UserDetails {
     private String mail;
     private String role;
     @Transient
-    private Set <? extends GrantedAuthority> authorities;
-
-//    public User(Set<? extends GrantedAuthority> authorities) {
-//        this.authorities = authorities;
-//    }
+    private Set<? extends GrantedAuthority> authorities;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        if (role.equals("ADMIN")) {
-            return UserRole.ADMIN.getGrantedAuthorities();
+        if (role.equals(ADMIN.name())) {
+            return ADMIN.getGrantedAuthorities();
         } else {
-            return UserRole.USER.getGrantedAuthorities();
+            return USER.getGrantedAuthorities();
         }
     }
 
