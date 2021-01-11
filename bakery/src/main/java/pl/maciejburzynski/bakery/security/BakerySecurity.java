@@ -31,6 +31,7 @@ public class BakerySecurity extends WebSecurityConfigurerAdapter {
                 .headers().disable()
                 .authorizeRequests()
                 .antMatchers("/signup").permitAll()
+                .antMatchers("/token").permitAll()
                 .antMatchers("/register").permitAll()
                 .antMatchers("/environment").permitAll()
                 .antMatchers(HttpMethod.GET,"/api/orders/**").hasAuthority(ORDERS_READ.name())
