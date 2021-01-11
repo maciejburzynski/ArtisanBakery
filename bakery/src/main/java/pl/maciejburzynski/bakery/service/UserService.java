@@ -30,7 +30,7 @@ public class UserService {
     }
 
     public void addUser(User user) throws MessagingException {
-//        user.setGrantedAuthorities(USER.getGrantedAuthorities());
+        user.setRole(USER.name());
         user.setPassword(passwordEncoder.encode(user.getPassword()));
             mailService.sendMail(user.getMail(),
                     "Witaj Piekarzu!",
@@ -41,6 +41,7 @@ public class UserService {
     }
 
     public void addInitialUser(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userCrudRepository.addUser(user);
     }
 }
