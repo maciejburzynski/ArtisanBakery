@@ -81,13 +81,13 @@ public class DataInit {
         user.setUsername("user");
         user.setRole(USER.name());
         user.setAuthorities(USER.getGrantedAuthorities());
-        user.setPassword(passwordEncoder.encode("user"));
+        user.setPassword("user");
 
         admin.setMail("maciekburzynski@op.pl");
         admin.setUsername("admin");
         admin.setRole(ADMIN.name());
         admin.setAuthorities(ADMIN.getGrantedAuthorities());
-        admin.setPassword(passwordEncoder.encode("admin"));
+        admin.setPassword("admin");
 
         userService.addInitialUser(user);
         userService.addInitialUser(admin);
