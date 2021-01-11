@@ -14,6 +14,7 @@ import pl.maciejburzynski.bakery.service.UserService;
 
 import javax.mail.MessagingException;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 @Controller
 @RequiredArgsConstructor
@@ -26,9 +27,9 @@ public class UserViewController {
     public String getStartPage(Model model) throws IOException, InterruptedException {
         model.addAttribute("weatherService", weatherService);
         model.addAttribute("loggedUser", getUsernameOfCurrentlyLoggedUser());
-//        if ("ADMIN".equals(getRoleOfCurrentlyLoggedUser())) {
-//            return "orders";
-//        }
+        if ("ADMIN".equals(getRoleOfCurrentlyLoggedUser())) {
+            return "orders";
+        }
         return "index";
     }
 
@@ -43,11 +44,29 @@ public class UserViewController {
         return "signup";
     }
 
-    @PostMapping("/register")
+    @PostMapping("/signup")
     public String registration(User user) throws MessagingException {
         userService.addUser(user);
-        return "signup";
+        return "redirect:/login";
+
     }
+
+
+    @GetMapping("/token")
+    public String tokenGet(){
+        return "test";
+    }
+    @PostMapping("/token")
+    public String tokenPost(String typedToken){
+        "1234".equals(typedToken);
+        return "test";
+    }
+
+
+
+
+
+
 
     private String getUsernameOfCurrentlyLoggedUser() {
         return SecurityContextHolder
