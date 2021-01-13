@@ -1,6 +1,7 @@
 package pl.maciejburzynski.bakery.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpRequest;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -13,6 +14,7 @@ import pl.maciejburzynski.bakery.security.UserRole;
 import pl.maciejburzynski.bakery.service.UserService;
 
 import javax.mail.MessagingException;
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
@@ -24,9 +26,10 @@ public class UserViewController {
     private final WeatherService weatherService;
 
     @GetMapping("/")
-    public String getStartPage(Model model) throws IOException, InterruptedException {
+    public String getStartPage(Model model, HttpServletRequest request) throws IOException, InterruptedException {
         model.addAttribute("weatherService", weatherService);
-        model.addAttribute("loggedUser", getUsernameOfCurrentlyLoggedUser());
+        model.addAttribute("loggedUser", request.getRemoteUser());
+//        model.addAttribute("loggedUser", getUsernameOfCurrentlyLoggedUser());
         if ("ADMIN".equals(getRoleOfCurrentlyLoggedUser())) {
             return "orders";
         }
@@ -46,26 +49,20 @@ public class UserViewController {
 
     @PostMapping("/signup")
     public String registration(User user) throws MessagingException {
-        userService.addUser(user);
-        return "redirect:/login";
-
+//        userService.addUser(user);
+        return "redirect:/token";
     }
-
 
     @GetMapping("/token")
-    public String tokenGet(){
+    public String tokenGet() {
         return "test";
     }
+
     @PostMapping("/token")
-    public String tokenPost(String typedToken){
-        "1234".equals(typedToken);
+    public String tokenPost(String typedToken, User user) {
+        "1234".equals(user.getMail());
         return "test";
     }
-
-
-
-
-
 
 
     private String getUsernameOfCurrentlyLoggedUser() {
