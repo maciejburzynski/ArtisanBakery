@@ -27,11 +27,11 @@ public class BreadService {
                 .orElseThrow(() -> new BreadNotFoundException("Bread with provided ID doesn't exist"));
     }
 
-    public void addBread(Bread bread) {
+    public void saveBread(Bread bread) {
         breadRepository.addBread(bread);
     }
 
-    public void addBreads(Iterable<Bread> breads) {
+    public void saveBreads(Iterable<Bread> breads) {
         breadRepository.addBreads(breads);
     }
 

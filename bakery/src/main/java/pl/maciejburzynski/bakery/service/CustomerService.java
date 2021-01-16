@@ -14,12 +14,12 @@ public class CustomerService {
 
     private final CustomerCrudRepository customerCrudRepository;
 
-    public void addCustomer(Customer customer) {
-        customerCrudRepository.addCustomer(customer);
+    public void saveCustomer(Customer customer) {
+        customerCrudRepository.saveCustomer(customer);
     }
 
     public Set<Customer> getCustomers() {
-        return customerCrudRepository.getAll();
+        return customerCrudRepository.getAllCustomers();
     }
 
     public Customer getCustomerById(Long id) {

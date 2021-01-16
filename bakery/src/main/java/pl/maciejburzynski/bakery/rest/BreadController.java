@@ -33,7 +33,7 @@ public class BreadController {
     @PostMapping
     public ResponseEntity addBread(@RequestBody Bread bread) {
         log.info("Adding bread: {} time...", bread);
-        breadService.addBread(bread);
+        breadService.saveBread(bread);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .build();
