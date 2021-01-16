@@ -1,29 +1,28 @@
 package pl.maciejburzynski.bakery.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpRequest;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import pl.maciejburzynski.bakery.entity.User;
 import pl.maciejburzynski.bakery.rest.weather.WeatherService;
-import pl.maciejburzynski.bakery.security.UserRole;
+import pl.maciejburzynski.bakery.service.TokenService;
 import pl.maciejburzynski.bakery.service.UserService;
 
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 
 @Controller
 @RequiredArgsConstructor
 public class UserViewController {
 
     private final UserService userService;
+    private final TokenService tokenService;
     private final WeatherService weatherService;
+    private User userToBeRegisteredHolder;
 
     @GetMapping("/")
     public String getStartPage(Model model, HttpServletRequest request) throws IOException, InterruptedException {
@@ -48,20 +47,30 @@ public class UserViewController {
     }
 
     @PostMapping("/signup")
-    public String registration(User user) throws MessagingException {
-//        userService.addUser(user);
+    public String registration(User userToBeRegistered) throws MessagingException {
+        userToBeRegisteredHolder = userToBeRegistered;
+        userService.sendTokenToUser(userToBeRegisteredHolder);
+        userService.addInactiveUserToDatabase(userToBeRegisteredHolder);
         return "redirect:/token";
     }
 
     @GetMapping("/token")
     public String tokenGet() {
-        return "test";
+        return "token";
     }
 
     @PostMapping("/token")
-    public String tokenPost(String typedToken, User user) {
-        "1234".equals(user.getMail());
-        return "test";
+    public String tokenPost(String typedTokenValue) throws MessagingException {
+        if (isUserTokenEqual(typedTokenValue)) {
+            userService.activateUser(userToBeRegisteredHolder);
+            return "redirect:/login";
+        } else {
+            return "redirect:/signup";
+        }
+    }
+
+    private boolean isUserTokenEqual(String typedTokenValue) {
+        return typedTokenValue.equalsIgnoreCase(tokenService.findByUser(userToBeRegisteredHolder).getValue());
     }
 
 
