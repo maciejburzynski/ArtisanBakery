@@ -3,26 +3,20 @@ package pl.maciejburzynski.bakery;
 import  lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.event.EventListener;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 import pl.maciejburzynski.bakery.entity.Bread;
 import pl.maciejburzynski.bakery.entity.Customer;
 import pl.maciejburzynski.bakery.entity.Order;
 import pl.maciejburzynski.bakery.entity.User;
-import pl.maciejburzynski.bakery.security.UserRole;
 import pl.maciejburzynski.bakery.service.BreadService;
 import pl.maciejburzynski.bakery.service.CustomerService;
 import pl.maciejburzynski.bakery.service.OrderService;
 import pl.maciejburzynski.bakery.service.UserService;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import static pl.maciejburzynski.bakery.security.UserRole.*;
 
@@ -49,16 +43,16 @@ public class DataInit {
         Bread bread = new Bread("Wielozbożowy", BigDecimal.valueOf(2.99));
         Bread bread1 = new Bread("Pytlowy", BigDecimal.valueOf(3.99));
 
-        breadService.addBread(bread);
-        breadService.addBread(bread1);
+        breadService.saveBread(bread);
+        breadService.saveBread(bread1);
     }
 
     private void addCustomers() {
         Customer customer = new Customer("Andrzej", "Andrzejewski");
         Customer customer1 = new Customer("Marcin", "Marcinowski");
 
-        customerService.addCustomer(customer);
-        customerService.addCustomer(customer1);
+        customerService.saveCustomer(customer);
+        customerService.saveCustomer(customer1);
     }
 
     private void addOrders() {
@@ -69,7 +63,7 @@ public class DataInit {
         order.assignCustomer(customer);
         order.setBreads(Arrays.asList(bread));
 
-        orderService.addOrder(order);
+        orderService.saveOrder(order);
     }
 
     private void addUsers() {
@@ -80,16 +74,14 @@ public class DataInit {
         user.setMail("maciekburzynski@op.pl");
         user.setUsername("user");
         user.setRole(USER.name());
-        user.setAuthorities(USER.getGrantedAuthorities());
         user.setPassword("user");
 
         admin.setMail("maciekburzynski@op.pl");
         admin.setUsername("admin");
         admin.setRole(ADMIN.name());
-        admin.setAuthorities(ADMIN.getGrantedAuthorities());
-        admin.setPassword("admin");
+            admin.setPassword("admin");
 
-        userService.addInitialUser(user);
-        userService.addInitialUser(admin);
+        userService.addInitializedUser(user);
+        userService.addInitializedUser(admin);
     }
 }

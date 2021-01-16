@@ -36,14 +36,21 @@ public class UserService {
     }
 
 
-    public void addInitialUser(User user) {
+    public void addInitializedUser(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setEnable(true);
+        userCrudRepository.addUser(user);
     }
 
     public void activateUser(User user) {
         user.setRole(USER.name());
         user.setEnable(true);
         userCrudRepository.addUser(user);
+    }
+
+    public void addInactiveUserToDatabase(User user) {
+        user.setEnable(false);
+        user.setRole(USER.name());
     }
 
     public void sendTokenToUser(User user) throws MessagingException {
@@ -59,10 +66,5 @@ public class UserService {
                         + token.getValue(),
                 false);
 
-    }
-
-    public void addInactiveUserToDatabase(User userToBeRegisteredHolder) {
-        userToBeRegisteredHolder.setEnable(false);
-        userToBeRegisteredHolder.setRole(USER.name());
     }
 }
