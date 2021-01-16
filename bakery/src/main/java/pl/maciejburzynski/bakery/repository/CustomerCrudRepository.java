@@ -16,11 +16,11 @@ public class CustomerCrudRepository {
 
     private final ICustomerCrudRepository customerCrudRepository;
 
-    public void addCustomer(Customer customer) {
+    public void saveCustomer(Customer customer) {
         customerCrudRepository.save(customer);
     }
 
-    public Set<Customer> getAll() {
+    public Set<Customer> getAllCustomers() {
         return StreamSupport
                 .stream(customerCrudRepository.findAll().spliterator(), false)
                 .collect(Collectors.toSet());
