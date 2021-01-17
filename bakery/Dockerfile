@@ -7,7 +7,6 @@ COPY ./ ./
 # package our application code
 RUN mvn clean package
 
-# the second stage of our build will use open jdk 8 on alpine 3.9
 FROM openjdk:11-jre-slim
 
 # copy only the artifacts we need from the first stage and discard the rest
@@ -19,5 +18,6 @@ CMD ["java", "-jar", "/bakery.jar"]
 
 # command to build an image:
 # docker build -f Dockerfile -t springdocker:v1 .
+
 # command to run the container:
 # docker run -p 8080:8080 <image id>
