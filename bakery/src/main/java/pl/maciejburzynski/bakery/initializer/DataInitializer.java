@@ -1,4 +1,4 @@
-package pl.maciejburzynski.bakery;
+package pl.maciejburzynski.bakery.initializer;
 
 import  lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -6,6 +6,7 @@ import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+import pl.maciejburzynski.bakery.BakeryConfig;
 import pl.maciejburzynski.bakery.entity.Bread;
 import pl.maciejburzynski.bakery.entity.Customer;
 import pl.maciejburzynski.bakery.entity.Order;
@@ -23,7 +24,7 @@ import static pl.maciejburzynski.bakery.security.UserRole.*;
 @Component
 @RequiredArgsConstructor
 @Slf4j
-public class DataInit {
+public class DataInitializer {
 
     private final BreadService breadService;
     private final CustomerService customerService;
@@ -70,18 +71,19 @@ public class DataInit {
         User user = new User();
         User admin = new User();
 
-
         user.setMail("maciekburzynski@op.pl");
         user.setUsername("user");
-        user.setRole(USER.name());
-        user.setPassword("user");
+        user.setUserRole(USER);
+        user.setPassword(passwordEncoder.encode("user"));
+        user.setEnable(true);
 
         admin.setMail("maciekburzynski@op.pl");
         admin.setUsername("admin");
-        admin.setRole(ADMIN.name());
-            admin.setPassword("admin");
+        admin.setUserRole(ADMIN);
+        admin.setPassword(passwordEncoder.encode("admin"));
+        admin.setEnable(true);
 
-        userService.addInitializedUser(user);
-        userService.addInitializedUser(admin);
+        userService.saveUser(user);
+        userService.saveUser(admin);
     }
 }

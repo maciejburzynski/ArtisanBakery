@@ -27,8 +27,7 @@ public class UserViewController {
     @GetMapping("/")
     public String getStartPage(Model model, HttpServletRequest request) throws IOException, InterruptedException {
         model.addAttribute("weatherService", weatherService);
-        model.addAttribute("loggedUser", request.getRemoteUser());
-//        model.addAttribute("loggedUser", getUsernameOfCurrentlyLoggedUser());
+        model.addAttribute("loggedUser", getUsernameOfCurrentlyLoggedUser());
         if ("ADMIN".equals(getRoleOfCurrentlyLoggedUser())) {
             return "orders";
         }

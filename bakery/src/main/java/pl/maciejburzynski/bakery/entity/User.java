@@ -28,16 +28,13 @@ public class User extends BasicEntity implements UserDetails {
     private String username;
     private String password;
     private String mail;
-    private String role;
+    @Enumerated(EnumType.STRING)
+    private UserRole userRole;
     private Boolean enable;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        if (role.equals(ADMIN.name())) {
-            return ADMIN.getGrantedAuthorities();
-        } else {
-            return USER.getGrantedAuthorities();
-        }
+        return userRole.getGrantedAuthorities();
     }
 
     @Override

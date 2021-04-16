@@ -26,31 +26,24 @@ public class UserService {
     private final TokenService tokenService;
 
 
-    public void saveUser(User user) throws MessagingException {
+    public void saveUser(User user)  {
         userCrudRepository.addUser(user);
     }
 
-    public UserDetails findByUsername(String s) {
-        return userCrudRepository.findByUsername(s)
-                .orElseThrow(() -> new UserNotFoundException("User doesn't exist " + s));
-    }
-
-
-    public void addInitializedUser(User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setEnable(true);
-        userCrudRepository.addUser(user);
+    public UserDetails findByUsername(String username) {
+        return userCrudRepository.findByUsername(username)
+                .orElseThrow(() -> new UserNotFoundException("User doesn't exist " + username));
     }
 
     public void activateUser(User user) {
-        user.setRole(USER.name());
+        user.setUserRole(USER);
         user.setEnable(true);
         userCrudRepository.addUser(user);
     }
 
     public void addInactiveUserToDatabase(User user) {
         user.setEnable(false);
-        user.setRole(USER.name());
+        user.setUserRole(USER);
     }
 
     public void sendTokenToUser(User user) throws MessagingException {
